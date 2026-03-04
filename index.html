@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Allie ❤️</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins&display=swap');
+
+body {
+    margin: 0;
+    background: linear-gradient(135deg, #7a0000, #b30000);
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    text-align: center;
+    overflow-x: hidden;
+}
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3em;
+    margin-top: 60px;
+}
+
+.counter {
+    margin-top: 20px;
+    font-size: 1.1em;
+    color: #7CFC9A;
+}
+
+.container {
+    margin: 40px auto;
+    max-width: 900px;
+    padding: 20px;
+}
+
+.letter-box {
+    background: rgba(0,0,0,0.35);
+    border-radius: 20px;
+    padding: 30px;
+    min-height: 250px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.4);
+    white-space: pre-wrap;
+    text-align: left;
+    border: 2px solid #7CFC9A;
+}
+
+button {
+    padding: 15px 35px;
+    border-radius: 40px;
+    border: none;
+    background: #7CFC9A;
+    color: #7a0000;
+    font-size: 1em;
+    cursor: pointer;
+    margin-top: 30px;
+}
+
+button:hover {
+    background: #a8ffbf;
+}
+
+.gallery {
+    display: none;
+    margin-top: 60px;
+}
+
+.gallery h2 {
+    color: #7CFC9A;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.gallery img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 15px;
+    border: 3px solid #7CFC9A;
+    transition: transform 0.4s ease;
+}
+
+.gallery img:hover {
+    transform: scale(1.05);
+}
+
+footer {
+    margin: 60px 0 20px;
+    opacity: 0.8;
+}
+
+/* Floating hearts */
+.heart {
+    position: fixed;
+    bottom: -10px;
+    font-size: 22px;
+    animation: float 8s linear infinite;
+}
+
+@keyframes float {
+    from {transform: translateY(0); opacity:1;}
+    to {transform: translateY(-110vh); opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<h1>Happy Anniversary, Allie ❤️</h1>
+
+<div class="counter" id="counter"></div>
+
+<div class="container">
+    <button onclick="startLetter()">Open Your Letter 💌</button>
+    <div class="letter-box" id="letter"></div>
+
+    <div class="gallery" id="gallery">
+        <h2>Our Memories 📸</h2>
+        <div class="gallery-grid">
+            <!-- Replace with your photos -->
+            <img src="photo1.jpg">
+            <img src="photo2.jpg">
+            <img src="photo3.jpg">
+            <img src="photo4.jpg">
+        </div>
+    </div>
+</div>
+
+<footer>
+Forever Yours — Caiden 💚 | 09/05/2025
+</footer>
+
+<!-- Romantic Piano -->
+<audio id="bgMusic" loop>
+    <source src="romantic-piano.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+/* =============================
+   LIVE RELATIONSHIP COUNTER
+============================= */
+const startDate = new Date("September 5, 2025 00:00:00");
+
+function updateCounter() {
+    const now = new Date();
+    let diff = now - startDate;
+
+    const seconds = Math.floor(diff / 1000) % 60;
+    const minutes = Math.floor(diff / (1000 * 60)) % 60;
+    const hours = Math.floor(diff / (1000 * 60 * 60)) % 24;
+    const daysTotal = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+    const years = Math.floor(daysTotal / 365);
+    const months = Math.floor((daysTotal % 365) / 30);
+    const days = (daysTotal % 365) % 30;
+
+    document.getElementById("counter").innerHTML =
+        `We've been together for <br>
+        ${years} Years, ${months} Months, ${days} Days <br>
+        ${hours} Hours, ${minutes} Minutes, ${seconds} Seconds ❤️`;
+}
+
+setInterval(updateCounter, 1000);
+updateCounter();
+
+/* =============================
+   LOVE LETTER TYPING
+============================= */
+
+const letterText = 
+`To Allie,
+
+Hi baby!
+
+It’s our anniversary, and I love you so much.
+
+I couldn’t think of much — and I’m also kinda broke right now — so I’ve spent the last few days coding this website.
+
+I know it doesn’t seem like much, but I honestly spent so much time on it, and it took me a good while.
+
+I love you so much, babe. You are my absolute world.
+
+I hope you enjoy your day!
+
+Love,
+Caiden ❤️`;
+
+let index = 0;
+let typingStarted = false;
+
+function startLetter() {
+    if (typingStarted) return;
+    typingStarted = true;
+
+    // Start music after interaction (mobile safe)
+    document.getElementById("bgMusic").play();
+
+    typeLetter();
+}
+
+function typeLetter() {
+    if (index < letterText.length) {
+        document.getElementById("letter").innerHTML += letterText.charAt(index);
+        index++;
+        setTimeout(typeLetter, 40);
+    } else {
+        document.getElementById("gallery").style.display = "block";
+    }
+}
+
+/* =============================
+   FLOATING HEARTS
+============================= */
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 4 + 4) + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 8000);
+}
+
+setInterval(createHeart, 400);
+</script>
+
+</body>
+</html>
